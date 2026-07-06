@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hello World Aesthetic</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      font-family: Arial, sans-serif;
+      background:
+        radial-gradient(circle at 20% 20%, rgba(255, 0, 140, 0.35), transparent 28%),
+        radial-gradient(circle at 80% 30%, rgba(0, 170, 255, 0.30), transparent 28%),
+        radial-gradient(circle at 50% 80%, rgba(0, 255, 200, 0.22), transparent 22%),
+        linear-gradient(135deg, #060816, #120b2f 55%, #1e1147);
+      color: white;
+      position: relative;
+    }
+
+    .card {
+      position: relative;
+      z-index: 2;
+      width: min(90%, 760px);
+      padding: 50px 30px;
+      text-align: center;
+      border-radius: 24px;
+      background: rgba(255, 255, 255, 0.10);
+      border: 1px solid rgba(255, 255, 255, 0.20);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.45);
+      animation: fadeInUp 1s ease;
+    }
+
+    .tag {
+      display: inline-block;
+      padding: 10px 18px;
+      border-radius: 999px;
+      font-size: 13px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      background: linear-gradient(90deg, #ff4ecd, #7c4dff, #47b8ff);
+      margin-bottom: 22px;
+      animation: glow 3s infinite ease-in-out;
+    }
+
+    h1 {
+      font-size: clamp(3rem, 8vw, 6rem);
+      margin-bottom: 18px;
+      background: linear-gradient(90deg, #ffffff, #ffd6f7, #9fe7ff, #ffe28a);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: hueShift 6s linear infinite;
+    }
+
+    p {
+      font-size: 1.15rem;
+      line-height: 1.7;
+      color: #d9e2ff;
+      max-width: 600px;
+      margin: 0 auto 28px;
+    }
+
+    .buttons {
+      display: flex;
+      justify-content: center;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      padding: 14px 24px;
+      border-radius: 999px;
+      text-decoration: none;
+      color: white;
+      font-weight: bold;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .btn.primary {
+      background: linear-gradient(90deg, #ff4ecd, #7c4dff);
+      box-shadow: 0 10px 25px rgba(124, 77, 255, 0.35);
+    }
+
+    .btn.secondary {
+      background: rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+    }
+
+    .btn:hover {
+      transform: translateY(-4px) scale(1.03);
+    }
+
+    .orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(22px);
+      opacity: 0.8;
+      animation: float 7s ease-in-out infinite;
+    }
+
+    .orb1 {
+      width: 220px;
+      height: 220px;
+      top: 8%;
+      left: 8%;
+      background: rgba(255, 78, 205, 0.25);
+    }
+
+    .orb2 {
+      width: 260px;
+      height: 260px;
+      right: 8%;
+      top: 18%;
+      background: rgba(71, 184, 255, 0.22);
+      animation-delay: -2s;
+    }
+
+    .orb3 {
+      width: 220px;
+      height: 220px;
+      bottom: 8%;
+      left: 38%;
+      background: rgba(0, 255, 200, 0.18);
+      animation-delay: -4s;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0px) scale(1); }
+      50% { transform: translateY(-20px) scale(1.05); }
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes glow {
+      0%, 100% { box-shadow: 0 0 18px rgba(124, 77, 255, 0.25); }
+      50% { box-shadow: 0 0 28px rgba(255, 78, 205, 0.45); }
+    }
+
+    @keyframes hueShift {
+      0% { filter: hue-rotate(0deg); }
+      100% { filter: hue-rotate(360deg); }
+    }
+
+    @media (max-width: 600px) {
+      .card {
+        padding: 36px 20px;
+      }
+
+      p {
+        font-size: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="orb orb1"></div>
+  <div class="orb orb2"></div>
+  <div class="orb orb3"></div>
+
+  <div class="card">
+    <div class="tag">Hi i am Kamalesh</div>
+    <h1>Hello Brunda Bhavani</h1>
+    <p>
+      Please give me 2 mushroom peices in today's mix manchurian
+    </p>
+    <div class="buttons">
+      <a href="#" class="btn primary">i will give</a>
+      <a href="#" class="btn secondary">i will not give</a>
+    </div>
+  </div>
+</body>
+</html>
