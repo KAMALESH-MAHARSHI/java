@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kamalesh B Maharshi — Embedded Systems &amp; Electronics Engineer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #0E1512;
+    --bg-panel: #131C18;
+    --board: #16211C;
+    --trace: #3F5C4E;
+    --trace-bright: #5FD9A4;
+    --copper: #D98E4A;
+    --ink: #E9E4D6;
+    --ink-dim: #9FAFA6;
+    --ink-faint: #6C7A72;
+    --danger: #E0704F;
+    --radius: 3px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:'IBM Plex Sans', sans-serif;
+    font-size:16px;
+    line-height:1.7;
+  }
+  ::selection{ background:var(--trace-bright); color:#0E1512; }
+  a{ color:var(--trace-bright); text-decoration:none; }
+  a:hover{ text-decoration:underline; }
+  .mono{ font-family:'JetBrains Mono', monospace; }
+  .wrap{
+    max-width:960px;
+    margin:0 auto;
+    padding:0 32px;
+  }
+  .board-bg{
+    background-image:
+      linear-gradient(var(--trace) 1px, transparent 1px),
+      linear-gradient(90deg, var(--trace) 1px, transparent 1px);
+    background-size: 42px 42px;
+    background-position: -1px -1px;
+    opacity:0.08;
+    position:fixed;
+    inset:0;
+    pointer-events:none;
+    z-index:0;
+  }
+  header.hero{
+    position:relative;
+    padding:100px 0 70px;
+    border-bottom:1px solid var(--trace);
+    overflow:hidden;
+  }
+  .eyebrow{
+    font-family:'JetBrains Mono', monospace;
+    font-size:13px;
+    letter-spacing:0.12em;
+    color:var(--trace-bright);
+    text-transform:uppercase;
+    margin:0 0 18px;
+    display:flex;
+    align-items:center;
+    gap:10px;
+  }
+  .eyebrow::before{
+    content:"";
+    width:8px; height:8px;
+    background:var(--trace-bright);
+    border-radius:50%;
+    box-shadow:0 0 8px var(--trace-bright);
+    animation:pulse 2s infinite ease-in-out;
+  }
+  @keyframes pulse{
+    0%,100%{opacity:1;}
+    50%{opacity:0.35;}
+  }
+  h1.name{
+    font-family:'JetBrains Mono', monospace;
+    font-size:44px;
+    font-weight:700;
+    margin:0 0 14px;
+    line-height:1.15;
+    letter-spacing:-0.01em;
+  }
+  .role-line{
+    font-size:19px;
+    color:var(--ink-dim);
+    margin:0 0 34px;
+    max-width:560px;
+  }
+  .contact-row{
+    display:flex;
+    flex-wrap:wrap;
+    gap:22px;
+    font-family:'JetBrains Mono', monospace;
+    font-size:14px;
+  }
+  .contact-row a{ color:var(--ink); }
+  .contact-row a:hover{ color:var(--trace-bright); }
+  .contact-row span.sep{ color:var(--ink-faint); }
+
+  nav.trace-nav{
+    position:sticky;
+    top:0;
+    z-index:10;
+    background:rgba(14,21,18,0.92);
+    backdrop-filter:blur(6px);
+    border-bottom:1px solid var(--trace);
+  }
+  nav.trace-nav .wrap{
+    display:flex;
+    gap:28px;
+    padding:16px 32px;
+    overflow-x:auto;
+  }
+  nav.trace-nav a{
+    font-family:'JetBrains Mono', monospace;
+    font-size:13px;
+    color:var(--ink-dim);
+    white-space:nowrap;
+    letter-spacing:0.03em;
+  }
+  nav.trace-nav a:hover{ color:var(--trace-bright); text-decoration:none; }
+
+  section{ padding:64px 0; border-bottom:1px solid var(--trace); position:relative; z-index:1;}
+  section:last-of-type{ border-bottom:none; }
+
+  .section-head{
+    display:flex;
+    align-items:baseline;
+    gap:16px;
+    margin-bottom:36px;
+  }
+  .section-num{
+    font-family:'JetBrains Mono', monospace;
+    color:var(--copper);
+    font-size:14px;
+  }
+  h2{
+    font-family:'JetBrains Mono', monospace;
+    font-size:24px;
+    font-weight:700;
+    margin:0;
+    letter-spacing:-0.01em;
+  }
+
+  .about-grid{
+    display:grid;
+    grid-template-columns:1.3fr 1fr;
+    gap:48px;
+  }
+  .about-text p{ color:var(--ink-dim); margin:0 0 16px; }
+  .signal-box{
+    background:var(--board);
+    border:1px solid var(--trace);
+    border-radius:var(--radius);
+    padding:22px 24px;
+  }
+  .signal-box h3{
+    font-family:'JetBrains Mono', monospace;
+    font-size:13px;
+    text-transform:uppercase;
+    letter-spacing:0.08em;
+    color:var(--trace-bright);
+    margin:0 0 14px;
+  }
+  .signal-box ul{ margin:0; padding-left:18px; color:var(--ink-dim); font-size:14px; }
+  .signal-box li{ margin-bottom:8px; }
+
+  .skills-grid{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:20px;
+  }
+  .skill-card{
+    background:var(--board);
+    border:1px solid var(--trace);
+    border-radius:var(--radius);
+    padding:20px;
+  }
+  .skill-card h3{
+    font-family:'JetBrains Mono', monospace;
+    font-size:13px;
+    color:var(--copper);
+    text-transform:uppercase;
+    letter-spacing:0.06em;
+    margin:0 0 12px;
+  }
+  .chip-row{ display:flex; flex-wrap:wrap; gap:8px; }
+  .chip{
+    font-family:'JetBrains Mono', monospace;
+    font-size:12px;
+    color:var(--ink);
+    border:1px solid var(--trace);
+    border-radius:20px;
+    padding:5px 12px;
+    background:rgba(95,217,164,0.05);
+  }
+
+  .timeline{ position:relative; padding-left:28px; }
+  .timeline::before{
+    content:"";
+    position:absolute;
+    left:5px; top:6px; bottom:6px;
+    width:1px;
+    background:var(--trace);
+  }
+  .t-item{ position:relative; margin-bottom:40px; }
+  .t-item:last-child{ margin-bottom:0; }
+  .t-item::before{
+    content:"";
+    position:absolute;
+    left:-28px; top:5px;
+    width:11px; height:11px;
+    border-radius:50%;
+    background:var(--bg);
+    border:2px solid var(--trace-bright);
+  }
+  .t-role{ font-family:'JetBrains Mono', monospace; font-size:16px; font-weight:700; margin:0 0 2px;}
+  .t-org{ color:var(--copper); font-size:14px; margin:0 0 4px; }
+  .t-date{ font-family:'JetBrains Mono', monospace; font-size:12px; color:var(--ink-faint); margin:0 0 12px; }
+  .t-item ul{ margin:0; padding-left:18px; color:var(--ink-dim); font-size:14.5px; }
+  .t-item li{ margin-bottom:6px; }
+
+  .project-card{
+    background:var(--board);
+    border:1px solid var(--trace);
+    border-radius:var(--radius);
+    padding:28px;
+    margin-bottom:24px;
+  }
+  .project-card.featured{
+    border-color:var(--trace-bright);
+    box-shadow:0 0 0 1px rgba(95,217,164,0.15);
+  }
+  .project-top{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    gap:16px;
+    margin-bottom:14px;
+    flex-wrap:wrap;
+  }
+  .project-title{ font-family:'JetBrains Mono', monospace; font-size:18px; font-weight:700; margin:0; }
+  .project-tag{
+    font-family:'JetBrains Mono', monospace;
+    font-size:11px;
+    color:var(--bg);
+    background:var(--trace-bright);
+    padding:4px 10px;
+    border-radius:20px;
+    white-space:nowrap;
+  }
+  .project-meta{
+    font-family:'JetBrains Mono', monospace;
+    font-size:12px;
+    color:var(--ink-faint);
+    margin:0 0 14px;
+  }
+  .project-card ul{ margin:0 0 16px; padding-left:18px; color:var(--ink-dim); font-size:14.5px; }
+  .project-card li{ margin-bottom:6px; }
+  .stack-row{ display:flex; flex-wrap:wrap; gap:8px; }
+  .stack-chip{
+    font-family:'JetBrains Mono', monospace;
+    font-size:11.5px;
+    color:var(--ink-dim);
+    border:1px solid var(--trace);
+    padding:4px 10px;
+    border-radius:var(--radius);
+  }
+
+  .cert-grid{
+    display:grid;
+    grid-template-columns:repeat(2, 1fr);
+    gap:14px;
+  }
+  .cert-item{
+    display:flex;
+    justify-content:space-between;
+    gap:12px;
+    border:1px solid var(--trace);
+    border-radius:var(--radius);
+    padding:14px 18px;
+    background:var(--board);
+    font-size:14px;
+  }
+  .cert-item span.org{ color:var(--ink-faint); font-family:'JetBrains Mono', monospace; font-size:12px; white-space:nowrap; }
+
+  footer{
+    padding:70px 0 60px;
+    text-align:center;
+  }
+  footer h2{ margin-bottom:14px; }
+  footer p{ color:var(--ink-dim); max-width:480px; margin:0 auto 30px; }
+  .cta-row{ display:flex; justify-content:center; gap:16px; flex-wrap:wrap; }
+  .btn{
+    font-family:'JetBrains Mono', monospace;
+    font-size:14px;
+    padding:12px 24px;
+    border-radius:var(--radius);
+    border:1px solid var(--trace-bright);
+    color:var(--trace-bright);
+    transition:all 0.15s ease;
+  }
+  .btn:hover{ background:var(--trace-bright); color:var(--bg); text-decoration:none; }
+  .btn.solid{ background:var(--trace-bright); color:var(--bg); }
+  .btn.solid:hover{ background:transparent; color:var(--trace-bright); }
+  .foot-note{
+    margin-top:50px;
+    font-family:'JetBrains Mono', monospace;
+    font-size:12px;
+    color:var(--ink-faint);
+  }
+
+  @media(max-width:760px){
+    .wrap{ padding:0 20px; }
+    h1.name{ font-size:32px; }
+    .about-grid{ grid-template-columns:1fr; }
+    .skills-grid{ grid-template-columns:1fr 1fr; }
+    .cert-grid{ grid-template-columns:1fr; }
+    nav.trace-nav .wrap{ gap:18px; }
+  }
+  @media(max-width:520px){
+    .skills-grid{ grid-template-columns:1fr; }
+  }
+  @media (prefers-reduced-motion: reduce){
+    .eyebrow::before{ animation:none; }
+  }
+</style>
+</head>
+<body>
+<div class="board-bg"></div>
+
+<nav class="trace-nav">
+  <div class="wrap">
+    <a href="#about">01 · About</a>
+    <a href="#skills">02 · Skills</a>
+    <a href="#experience">03 · Experience</a>
+    <a href="#projects">04 · Projects</a>
+    <a href="#certificates">05 · Certificates</a>
+    <a href="#contact">06 · Contact</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <p class="eyebrow">Available for fresher roles · Bengaluru</p>
+    <h1 class="name">Kamalesh B Maharshi</h1>
+    <p class="role-line">Embedded systems &amp; electronics engineer building sensor-driven, ML-backed hardware — from Proteus simulation to real silicon.</p>
+    <div class="contact-row">
+      <a href="mailto:kamaleshbm2211@gmail.com">kamaleshbm2211@gmail.com</a>
+      <span class="sep">/</span>
+      <a href="tel:+919845051531">+91 98450 51531</a>
+      <span class="sep">/</span>
+      <a href="https://www.linkedin.com/in/kamalesh51824" target="_blank" rel="noopener">linkedin.com/in/kamalesh51824</a>
+      <span class="sep">/</span>
+      <a href="https://github.com/KAMALESH-MAHARSHI" target="_blank" rel="noopener">github.com/KAMALESH-MAHARSHI</a>
+      <span class="sep">/</span>
+      <span>Bengaluru, Karnataka</span>
+    </div>
+  </div>
+</header>
+
+<section id="about">
+  <div class="wrap">
+    <div class="section-head"><span class="section-num">01</span><h2>About</h2></div>
+    <div class="about-grid">
+      <div class="about-text">
+        <p>I'm an M.Tech candidate in Digital Electronics and Communication at MS Ramaiah Institute of Technology, finishing up in 2026. My work sits at the intersection of embedded hardware and applied machine learning — I like systems that sense the physical world, make a decision, and act on it in real time.</p>
+        <p>My flagship project is a Vehicle On-Board Diagnosis system that fuses six sensors on an Arduino UNO with six independent Random Forest classifiers to flag faults before they become breakdowns — validated in Proteus before ever touching hardware. Before that, I spent time at BHEL working on real industrial electrical schematics, which grounded my design instincts in what actually ships.</p>
+        <p>I'm currently interviewing for DFT engineering roles and looking for full-time positions across electronics, semiconductor, embedded systems, and IoT/ML engineering in Bengaluru.</p>
+      </div>
+      <div class="signal-box">
+        <h3>Quick facts</h3>
+        <ul>
+          <li>M.Tech, Digital Electronics &amp; Communication — RIT Bengaluru (2024–2026)</li>
+          <li>B.E., Electronics &amp; Communication — Atria IT (2020–2024)</li>
+          <li>3 internships: BHEL, IETE, Varcons Technologies</li>
+          <li>Core focus: embedded firmware, sensor fusion, applied ML, IoT</li>
+          <li>Simulation-first workflow: Proteus &amp; ModelSim before hardware</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="skills">
+  <div class="wrap">
+    <div class="section-head"><span class="section-num">02</span><h2>Skills</h2></div>
+    <div class="skills-grid">
+      <div class="skill-card">
+        <h3>Languages</h3>
+        <div class="chip-row">
+          <span class="chip">Python</span><span class="chip">Verilog</span><span class="chip">C</span><span class="chip">C++</span><span class="chip">HTML/CSS</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <h3>Design tools</h3>
+        <div class="chip-row">
+          <span class="chip">Vivado</span><span class="chip">Cadence</span><span class="chip">Xilinx ISE</span><span class="chip">Ansys</span><span class="chip">Proteus</span><span class="chip">Fritzing</span><span class="chip">Git / GitHub</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <h3>Firmware &amp; protocols</h3>
+        <div class="chip-row">
+          <span class="chip">Arduino IDE</span><span class="chip">UART</span><span class="chip">I2C</span><span class="chip">SPI</span><span class="chip">GSM/SIM800L</span><span class="chip">DSP</span><span class="chip">FSM design</span><span class="chip">IoT</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="experience">
+  <div class="wrap">
+    <div class="section-head"><span class="section-num">03</span><h2>Experience</h2></div>
+    <div class="timeline">
+      <div class="t-item">
+        <p class="t-role">Electrical System Design Intern</p>
+        <p class="t-org">Bharat Heavy Electricals Limited (BHEL)</p>
+        <p class="t-date">Oct 2025 – Dec 2025</p>
+        <ul>
+          <li>Prepared and modified electrical drawings — Single Line Diagrams and layout schematics for industrial power systems in AutoCAD.</li>
+          <li>Ran transformer and cable sizing calculations against load requirements and safety standards.</li>
+          <li>Supported review of electrical schemes and industrial automation systems for spec compliance.</li>
+          <li>Contributed to equipment procurement via technical evaluation and documentation.</li>
+        </ul>
+      </div>
+      <div class="t-item">
+        <p class="t-role">AI, ML and IoT Intern</p>
+        <p class="t-org">The Institution of Electronics and Telecommunication Engineers (IETE)</p>
+        <p class="t-date">Oct 2023 – Dec 2023</p>
+        <ul>
+          <li>Worked on AI/ML applications for embedded systems and IoT, planning tasks, milestones, and timelines.</li>
+          <li>Tested and debugged project functionality; implemented sensors, actuators, and communication modules in real-world IoT builds.</li>
+        </ul>
+      </div>
+      <div class="t-item">
+        <p class="t-role">Software Engineering Intern</p>
+        <p class="t-org">Varcons Technologies</p>
+        <p class="t-date">Mar 2023 – May 2023</p>
+        <ul>
+          <li>Built a website to digitise an NGO's services, cutting dependency on phone-based communication.</li>
+          <li>Scraped the JNTUH website to enrich the platform with relevant academic data.</li>
+          <li>Ran research analysis and functional testing post-deployment.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="projects">
+  <div class="wrap">
+    <div class="section-head"><span class="section-num">04</span><h2>Projects</h2></div>
+
+    <div class="project-card featured">
+      <div class="project-top">
+        <h3 class="project-title">Vehicle On-Board Diagnosis Fault Prediction System</h3>
+        <span class="project-tag">Flagship</span>
+      </div>
+      <p class="project-meta">Oct 2025 – Jun 2026 · Embedded systems · Machine learning · IoT</p>
+      <ul>
+        <li>Integrated six sensors (DS18B20, MQ-2, SW-420, HC-SR04, voltage divider, KY-026) with an Arduino UNO for real-time data acquisition.</li>
+        <li>Trained six independent Random Forest classifiers in Scikit-learn for three-tier fault classification: Healthy, Service Soon, Immediate Service Required.</li>
+        <li>Added GSM SMS alerting via SIM800L, hardware immobilization through an L293D motor driver, and 16×2 LCD feedback.</li>
+        <li>Validated the complete system in Proteus before physical hardware implementation.</li>
+      </ul>
+      <div class="stack-row">
+        <span class="stack-chip">Arduino UNO</span><span class="stack-chip">Scikit-learn</span><span class="stack-chip">SIM800L</span><span class="stack-chip">Proteus</span><span class="stack-chip">Random Forest</span>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-top">
+        <h3 class="project-title">Automated Spying Robot for Security Assistance</h3>
+      </div>
+      <p class="project-meta">Nov 2023 – May 2024 · Robotics · Internet of Things</p>
+      <ul>
+        <li>Built an autonomous security robot for real-time surveillance and wireless communication with remote personnel.</li>
+        <li>Deployed IoT-based control and sensor fusion for continuous environmental risk assessment.</li>
+      </ul>
+      <div class="stack-row">
+        <span class="stack-chip">IoT</span><span class="stack-chip">Sensor fusion</span><span class="stack-chip">Wireless comms</span>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-top">
+        <h3 class="project-title">Design and Modelling of Vending Machine Using Verilog</h3>
+      </div>
+      <p class="project-meta">May 2023 – Sep 2023 · Digital system design · Verilog · FPGA</p>
+      <ul>
+        <li>Designed a Moore-type FSM vending machine model in Verilog HDL — logic design, state diagrams, implementation, and verification.</li>
+        <li>Simulated and verified on ModelSim, confirming correct state transitions across all test cases.</li>
+      </ul>
+      <div class="stack-row">
+        <span class="stack-chip">Verilog HDL</span><span class="stack-chip">ModelSim</span><span class="stack-chip">FSM design</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="certificates">
+  <div class="wrap">
+    <div class="section-head"><span class="section-num">05</span><h2>Certificates</h2></div>
+    <div class="cert-grid">
+      <div class="cert-item"><span>Next-Gen Innovation with RISC-V: Design and Applications</span><span class="org">MSRIT</span></div>
+      <div class="cert-item"><span>MATLAB Advanced — DSP / Simulink</span><span class="org">IETE Bangalore</span></div>
+      <div class="cert-item"><span>Radio Frequency Circuits and Systems</span><span class="org">MSRIT</span></div>
+      <div class="cert-item"><span>The Web Developer Bootcamp 2024</span><span class="org">Udemy</span></div>
+    </div>
+  </div>
+</section>
+
+<footer id="contact">
+  <div class="wrap">
+    <h2>Let's connect</h2>
+    <p>Open to fresher roles in electronics, semiconductor, embedded systems, and IoT/ML engineering across Bengaluru.</p>
+    <div class="cta-row">
+      <a class="btn solid" href="mailto:kamaleshbm2211@gmail.com">Email me</a>
+      <a class="btn" href="https://www.linkedin.com/in/kamalesh51824" target="_blank" rel="noopener">View LinkedIn</a>
+      <a class="btn" href="https://github.com/KAMALESH-MAHARSHI" target="_blank" rel="noopener">View GitHub</a>
+    </div>
+    <p class="foot-note">Kamalesh B Maharshi · Bengaluru, Karnataka · Built 2026</p>
+  </div>
+</footer>
+
+</body>
+</html>
